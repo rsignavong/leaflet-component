@@ -1,5 +1,5 @@
 {
-  "name": "leaflet-component",
+  "name": "stencil-leaflet-component",
   "version": "1.0.0",
   "description": "Stencil Component Starter",
   "module": "dist/esm/index.js",
