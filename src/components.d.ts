@@ -14,19 +14,29 @@ export namespace Components {
 
   interface LeafletMap {
     'className': string;
+    'defaultPopup': string;
+    'iconHeight': number;
+    'iconUrl': string;
+    'iconWidth': number;
     'latitude': number;
     'longitude': number;
     'mapId': string;
     'scale': number;
+    'showDefaultMarker': boolean;
     'showScale': boolean;
     'tileLayer': string;
   }
   interface LeafletMapAttributes extends StencilHTMLAttributes {
     'className'?: string;
+    'defaultPopup'?: string;
+    'iconHeight'?: number;
+    'iconUrl'?: string;
+    'iconWidth'?: number;
     'latitude'?: number;
     'longitude'?: number;
     'mapId'?: string;
     'scale'?: number;
+    'showDefaultMarker'?: boolean;
     'showScale'?: boolean;
     'tileLayer'?: string;
   }
