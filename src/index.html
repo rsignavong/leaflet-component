@@ -1,24 +1,33 @@
 <!DOCTYPE html>
 <html dir="ltr" lang="en">
+
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=5.0">
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.4.0/dist/leaflet.css"
-   integrity="sha512-puBpdR0798OZvTTbP4A8Ix/l+A4dHDD0DGqYW6RQ+9jxkRFclaxxQb/SJAWZfWAkuyeQUytO7+7N4QKrDh+drA=="
-   crossorigin=""/>
+    integrity="sha512-puBpdR0798OZvTTbP4A8Ix/l+A4dHDD0DGqYW6RQ+9jxkRFclaxxQb/SJAWZfWAkuyeQUytO7+7N4QKrDh+drA=="
+    crossorigin="" />
   <script src="/build/leaflet-map.js"></script>
 
 </head>
+
 <body>
 
-  <leaflet-map mapId="mapId" tile-layer="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" latitude="51.505" longitude="-0.09" scale=13 show-scale="true" icon-url="https://image.flaticon.com/icons/svg/194/194648.svg" icon-width="64" icon-height="64" show-default-marker="true" default-popup="Panda was THERE!">
-    <leaflet-marker latitude="51.505" longitude="-0.06" icon-url="https://image.flaticon.com/icons/svg/194/194648.svg" icon-width="64" icon-height="64">
+  <leaflet-map mapId="mapId" tile-layer="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" latitude="51.505"
+    longitude="-0.09" scale=13 show-scale="true" icon-url="https://image.flaticon.com/icons/svg/194/194648.svg"
+    icon-width="64" icon-height="64" show-default-marker="true" default-popup="Panda was THERE!">
+    <leaflet-marker latitude="51.505" longitude="-0.06" icon-url="https://image.flaticon.com/icons/svg/194/194648.svg"
+      icon-width="64" icon-height="64">
       ... and THERE!
     </leaflet-marker>
-    <leaflet-marker latitude="51.505" longitude="-0.12" icon-url="https://image.flaticon.com/icons/svg/194/194648.svg" icon-width="64" icon-height="64">
+    <leaflet-marker latitude="51.505" longitude="-0.12" icon-url="https://image.flaticon.com/icons/svg/194/194648.svg"
+      icon-width="64" icon-height="64">
       ... and THERE TOO!
     </leaflet-marker>
+    <leaflet-circle latitude="51.505" longitude="-0.06" radius="3000" stroke="true" weight="10" color="#0f0">
+    </leaflet-circle>
   </leaflet-map>
 
 </body>
+
 </html>

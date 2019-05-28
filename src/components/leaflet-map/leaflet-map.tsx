@@ -30,7 +30,7 @@ export class LeafletMarker {
     this.setView();
     this.setTileLayer();
     this.setScale();
-    this.setMarkers();
+    this.setChildren();
     this.setDefaultMarker();
   }
 
@@ -89,7 +89,7 @@ export class LeafletMarker {
       });
 
       this.dmarker.setIcon(icon);
-     }
+    }
   }
 
   setDefaultMarker(): void {
@@ -107,21 +107,46 @@ export class LeafletMarker {
     }
   }
 
-  setMarkers(): void {
-    Array.from(this.el.children).filter(e => e.nodeName == "LEAFLET-MARKER")
-      .map(marker => {
-        const mk = L.marker([marker.getAttribute('latitude'), marker.getAttribute('longitude')])
-          .addTo(this.lmap)
-          .bindPopup(marker.textContent)
-          .openPopup();
+  setChildren(): void {
+    Array.from(this.el.children)
+      .map(e => {
+        if (e.nodeName == "LEAFLET-MARKER") {
+          const marker = e;
+          const mk = L.marker([marker.getAttribute('latitude'), marker.getAttribute('longitude')])
+            .addTo(this.lmap)
+            .bindPopup(marker.textContent)
+            .openPopup();
 
-        if (marker.getAttribute('icon-url')) {
-          const icon = L.icon({
-            iconUrl: marker.getAttribute('icon-url'),
-            iconSize: [marker.getAttribute('icon-width') || 32, marker.getAttribute('icon-height') || 32]
-          });
+          if (marker.getAttribute('icon-url')) {
+            const icon = L.icon({
+              iconUrl: marker.getAttribute('icon-url'),
+              iconSize: [marker.getAttribute('icon-width') || 32, marker.getAttribute('icon-height') || 32]
+            });
 
-          mk.setIcon(icon);
+            mk.setIcon(icon);
+          }
+        } else if (e.nodeName == "LEAFLET-CIRCLE") {
+          const circle = e;
+
+          L.circle([circle.getAttribute('latitude'), circle.getAttribute('longitude')],
+            {
+              radius: circle.getAttribute('radius'),
+              stroke: circle.hasAttribute('stroke'),
+              color: circle.hasAttribute('color') ? circle.getAttribute('color') : "#3388ff",
+              weight: circle.hasAttribute('weight') ? circle.getAttribute('weight') : 3,
+              opacity: circle.hasAttribute('opacity') ? circle.getAttribute('opacity') : 1.0,
+              lineCap: circle.hasAttribute('line-cap') ? circle.getAttribute('line-cap') : "round",
+              lineJoin: circle.hasAttribute('line-join') ? circle.getAttribute('line-join') : "round",
+              dashArray: circle.hasAttribute('dash-array') ? circle.getAttribute('dash-array') : null,
+              dashOffset: circle.hasAttribute('dash-offset') ? circle.getAttribute('dash-offset') : null,
+              fill: circle.hasAttribute('fill') && circle.getAttribute('fill') == "false" ? false : true,
+              fillColor: circle.hasAttribute('fill-color') ? circle.getAttribute('fill-color') : "#3388ff",
+              fillOpacity: circle.hasAttribute('fill-opacity') ? circle.getAttribute('fill-opacity') : 0.2,
+              fillRule: circle.hasAttribute('fill-rule') ? circle.getAttribute('fill-rule') : "evenodd",
+              bubblingMouseEvents: circle.hasAttribute('bubbling-mouse-events'),
+              className: circle.hasAttribute('class-name') ? circle.getAttribute('class-name') : null
+            })
+            .addTo(this.lmap);
         }
       });
   }
@@ -150,7 +175,7 @@ export class LeafletMarker {
     console.log("update", this.showDefaultMarker, this.defaultPopup);
     if (this.showDefaultMarker && this.defaultPopup) {
       this.dmarker
-        .bindPopup(this.defaultPopup, { offset: L.point(0, 6-this.iconHeight/2) })
+        .bindPopup(this.defaultPopup, { offset: L.point(0, 6 - this.iconHeight / 2) })
         .openPopup();
     }
   }
