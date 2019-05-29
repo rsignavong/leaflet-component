@@ -191,6 +191,6 @@ export class LeafletMarker {
     // return <div id={this.mapId} class={this.className} ref={el => this.el = el as HTMLDivElement}>
     //   <slot></slot>
     // </div>;
-    return <slot></slot>;
+    return <div></div>;
   }
 }

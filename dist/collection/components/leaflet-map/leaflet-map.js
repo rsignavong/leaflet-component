@@ -147,7 +147,7 @@ export class LeafletMarker {
         }
     }
     render() {
-        return h("slot", null);
+        return h("div", null);
     }
     static get is() { return "leaflet-map"; }
     static get properties() { return {
