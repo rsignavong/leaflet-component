@@ -108,9 +108,12 @@ export class LeafletMarker {
   }
 
   setChildren(): void {
+    console.log("CHILDREN", this.el.children);
     Array.from(this.el.children)
       .map(e => {
+        console.log("CHILD", e.nodeName, e);
         if (e.nodeName == "LEAFLET-MARKER") {
+          console.log("MARKER", e);
           const marker = e;
           const mk = L.marker([marker.getAttribute('latitude'), marker.getAttribute('longitude')])
             .addTo(this.lmap)
@@ -126,6 +129,7 @@ export class LeafletMarker {
             mk.setIcon(icon);
           }
         } else if (e.nodeName == "LEAFLET-CIRCLE") {
+          console.log("CIRCLE", e);
           const circle = e;
 
           L.circle([circle.getAttribute('latitude'), circle.getAttribute('longitude')],
