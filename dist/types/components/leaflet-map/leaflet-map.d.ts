@@ -1,0 +1,35 @@
+import '../../stencil.core';
+export declare class LeafletMarker {
+    lmap: any;
+    dmarker: any;
+    el: HTMLDivElement;
+    tileLayer: string;
+    mapId: string;
+    className: string;
+    iconUrl: string;
+    iconHeight: number;
+    iconWidth: number;
+    latitude: number;
+    longitude: number;
+    scale: number;
+    showScale: boolean;
+    showDefaultMarker: boolean;
+    defaultPopup: string;
+    componentDidLoad(): void;
+    defaultPopupHandler(newValue: string, _oldValue: string): void;
+    iconHeightHandler(newValue: number, _oldValue: number): void;
+    iconUrlHandler(newValue: string, _oldValue: string): void;
+    iconWidthHandler(newValue: number, _oldValue: number): void;
+    latitudeHandler(newValue: number, _oldValue: number): void;
+    longitudeHandler(newValue: number, _oldValue: number): void;
+    scaleHandler(newValue: number, _oldValue: number): void;
+    setDefaultIcon(): void;
+    setDefaultMarker(): void;
+    setChildren(): void;
+    setScale(): void;
+    setTileLayer(): void;
+    setView(): void;
+    updateDefaultMarker(): void;
+    updateDefaultPopup(): void;
+    render(): JSX.Element;
+}
