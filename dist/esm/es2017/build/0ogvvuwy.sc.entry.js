@@ -14020,8 +14020,8 @@ class LeafletMarker {
             .map(e => {
             console.log("CHILD", e.nodeName, e);
             if (e.nodeName == "LEAFLET-MARKER") {
-                console.log("MARKER", e);
                 const marker = e;
+                console.log("MARKER", [marker.getAttribute('latitude'), marker.getAttribute('longitude')]);
                 const mk = leafletSrc.marker([marker.getAttribute('latitude'), marker.getAttribute('longitude')])
                     .addTo(this.lmap)
                     .bindPopup(marker.textContent)
@@ -14035,8 +14035,8 @@ class LeafletMarker {
                 }
             }
             else if (e.nodeName == "LEAFLET-CIRCLE") {
-                console.log("CIRCLE", e);
                 const circle = e;
+                console.log("CIRCLE", [circle.getAttribute('latitude'), circle.getAttribute('longitude')], circle.getAttribute('radius'));
                 leafletSrc.circle([circle.getAttribute('latitude'), circle.getAttribute('longitude')], {
                     radius: circle.getAttribute('radius'),
                     stroke: circle.hasAttribute('stroke'),
