@@ -130,27 +130,31 @@ export class LeafletMarker {
           }
         } else if (e.nodeName == "LEAFLET-CIRCLE") {
           const circle = e;
-          console.log("CIRCLE", [circle.getAttribute('latitude'), circle.getAttribute('longitude')], circle.getAttribute('radius'));
 
-          L.circle([circle.getAttribute('latitude'), circle.getAttribute('longitude')],
-            {
-              radius: circle.getAttribute('radius'),
-              stroke: circle.hasAttribute('stroke'),
-              color: circle.hasAttribute('color') ? circle.getAttribute('color') : "#3388ff",
-              weight: circle.hasAttribute('weight') ? circle.getAttribute('weight') : 3,
-              opacity: circle.hasAttribute('opacity') ? circle.getAttribute('opacity') : 1.0,
-              lineCap: circle.hasAttribute('line-cap') ? circle.getAttribute('line-cap') : "round",
-              lineJoin: circle.hasAttribute('line-join') ? circle.getAttribute('line-join') : "round",
-              dashArray: circle.hasAttribute('dash-array') ? circle.getAttribute('dash-array') : null,
-              dashOffset: circle.hasAttribute('dash-offset') ? circle.getAttribute('dash-offset') : null,
-              fill: circle.hasAttribute('fill') && circle.getAttribute('fill') == "false" ? false : true,
-              fillColor: circle.hasAttribute('fill-color') ? circle.getAttribute('fill-color') : "#3388ff",
-              fillOpacity: circle.hasAttribute('fill-opacity') ? circle.getAttribute('fill-opacity') : 0.2,
-              fillRule: circle.hasAttribute('fill-rule') ? circle.getAttribute('fill-rule') : "evenodd",
-              bubblingMouseEvents: circle.hasAttribute('bubbling-mouse-events'),
-              className: circle.hasAttribute('class-name') ? circle.getAttribute('class-name') : null
-            })
+          const opts = {
+            radius: circle.getAttribute('radius'),
+            stroke: circle.hasAttribute('stroke'),
+            color: circle.hasAttribute('color') ? circle.getAttribute('color') : "#3388ff",
+            weight: circle.hasAttribute('weight') ? circle.getAttribute('weight') : 3,
+            opacity: circle.hasAttribute('opacity') ? circle.getAttribute('opacity') : 1.0,
+            lineCap: circle.hasAttribute('line-cap') ? circle.getAttribute('line-cap') : "round",
+            lineJoin: circle.hasAttribute('line-join') ? circle.getAttribute('line-join') : "round",
+            dashArray: circle.hasAttribute('dash-array') ? circle.getAttribute('dash-array') : null,
+            dashOffset: circle.hasAttribute('dash-offset') ? circle.getAttribute('dash-offset') : null,
+            fill: circle.hasAttribute('fill') && circle.getAttribute('fill') == "false" ? false : true,
+            fillColor: circle.hasAttribute('fill-color') ? circle.getAttribute('fill-color') : "#3388ff",
+            fillOpacity: circle.hasAttribute('fill-opacity') ? circle.getAttribute('fill-opacity') : 0.2,
+            fillRule: circle.hasAttribute('fill-rule') ? circle.getAttribute('fill-rule') : "evenodd",
+            bubblingMouseEvents: circle.hasAttribute('bubbling-mouse-events'),
+            className: circle.hasAttribute('class-name') ? circle.getAttribute('class-name') : null
+          };
+
+          console.log("CIRCLE", [circle.getAttribute('latitude'), circle.getAttribute('longitude')], opts);
+
+          L.circle([circle.getAttribute('latitude'), circle.getAttribute('longitude')], opts)
             .addTo(this.lmap);
+
+          console.log('lmap', this.lmap);
         }
       });
   }

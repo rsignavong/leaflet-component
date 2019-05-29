@@ -14036,8 +14036,7 @@ class LeafletMarker {
             }
             else if (e.nodeName == "LEAFLET-CIRCLE") {
                 const circle = e;
-                console.log("CIRCLE", [circle.getAttribute('latitude'), circle.getAttribute('longitude')], circle.getAttribute('radius'));
-                leafletSrc.circle([circle.getAttribute('latitude'), circle.getAttribute('longitude')], {
+                const opts = {
                     radius: circle.getAttribute('radius'),
                     stroke: circle.hasAttribute('stroke'),
                     color: circle.hasAttribute('color') ? circle.getAttribute('color') : "#3388ff",
@@ -14053,8 +14052,11 @@ class LeafletMarker {
                     fillRule: circle.hasAttribute('fill-rule') ? circle.getAttribute('fill-rule') : "evenodd",
                     bubblingMouseEvents: circle.hasAttribute('bubbling-mouse-events'),
                     className: circle.hasAttribute('class-name') ? circle.getAttribute('class-name') : null
-                })
+                };
+                console.log("CIRCLE", [circle.getAttribute('latitude'), circle.getAttribute('longitude')], opts);
+                leafletSrc.circle([circle.getAttribute('latitude'), circle.getAttribute('longitude')], opts)
                     .addTo(this.lmap);
+                console.log('lmap', this.lmap);
             }
         });
     }
