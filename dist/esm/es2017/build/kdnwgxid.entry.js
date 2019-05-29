@@ -13941,7 +13941,7 @@ class LeafletMarker {
         this.lmap = null;
         this.dmarker = null;
         this.tileLayer = 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png';
-        this.mapId = 'mapId';
+        this.mapId = '';
         this.className = '';
         this.iconUrl = '';
         this.iconHeight = 32;
@@ -13951,7 +13951,11 @@ class LeafletMarker {
         this.scale = 13;
     }
     componentDidLoad() {
-        this.lmap = leafletSrc.map(this.mapId);
+        var target = this.el;
+        if (this.mapId && this.mapId != '') {
+            target = document.getElementById(this.mapId);
+        }
+        this.lmap = leafletSrc.map(target);
         this.setView();
         this.setTileLayer();
         this.setScale();
@@ -14015,13 +14019,10 @@ class LeafletMarker {
         }
     }
     setChildren() {
-        console.log("CHILDREN", this.el.children);
         Array.from(this.el.children)
             .map(e => {
-            console.log("CHILD", e.nodeName, e);
             if (e.nodeName == "LEAFLET-MARKER") {
                 const marker = e;
-                console.log("MARKER", [marker.getAttribute('latitude'), marker.getAttribute('longitude')]);
                 const mk = leafletSrc.marker([marker.getAttribute('latitude'), marker.getAttribute('longitude')])
                     .addTo(this.lmap)
                     .bindPopup(marker.textContent)
@@ -14053,10 +14054,8 @@ class LeafletMarker {
                     bubblingMouseEvents: circle.hasAttribute('bubbling-mouse-events'),
                     className: circle.hasAttribute('class-name') ? circle.getAttribute('class-name') : null
                 };
-                console.log("CIRCLE", [circle.getAttribute('latitude'), circle.getAttribute('longitude')], opts);
                 leafletSrc.circle([circle.getAttribute('latitude'), circle.getAttribute('longitude')], opts)
                     .addTo(this.lmap);
-                console.log('lmap', this.lmap);
             }
         });
     }
@@ -14085,8 +14084,7 @@ class LeafletMarker {
         }
     }
     render() {
-        return h("div", { id: this.mapId, class: this.className, ref: el => this.el = el },
-            h("slot", null));
+        return h("slot", null);
     }
     static get is() { return "leaflet-map"; }
     static get properties() { return {
@@ -14099,6 +14097,9 @@ class LeafletMarker {
             "attr": "default-popup",
             "mutable": true,
             "watchCallbacks": ["defaultPopupHandler"]
+        },
+        "el": {
+            "elementRef": true
         },
         "iconHeight": {
             "type": Number,
@@ -14132,7 +14133,8 @@ class LeafletMarker {
         },
         "mapId": {
             "type": String,
-            "attr": "map-id"
+            "attr": "map-id",
+            "mutable": true
         },
         "scale": {
             "type": Number,

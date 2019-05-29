@@ -75,6 +75,7 @@
         {
           "name": "mapId",
           "type": "String",
+          "mutable": true,
           "attr": "map-id"
         },
         {
@@ -101,7 +102,10 @@
           "type": "String",
           "attr": "tile-layer"
         }
-      ]
+      ],
+      "hostElement": {
+        "name": "el"
+      }
     }
   ],
   "collections": [],

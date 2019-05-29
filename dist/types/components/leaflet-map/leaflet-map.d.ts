@@ -2,7 +2,7 @@ import '../../stencil.core';
 export declare class LeafletMarker {
     lmap: any;
     dmarker: any;
-    el: HTMLDivElement;
+    el: HTMLElement;
     tileLayer: string;
     mapId: string;
     className: string;

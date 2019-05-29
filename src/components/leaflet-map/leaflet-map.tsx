@@ -1,4 +1,4 @@
-import { Component, Prop, Watch } from '@stencil/core';
+import { Component, Prop, Watch, Element } from '@stencil/core';
 import L from 'leaflet';
 
 @Component({
@@ -10,10 +10,11 @@ export class LeafletMarker {
   lmap: any = null;
   dmarker: any = null;
 
-  el!: HTMLDivElement;
+  @Element() el: HTMLElement;
+  // el!: HTMLDivElement;
 
   @Prop() tileLayer: string = 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png';
-  @Prop() mapId: string = 'mapId';
+  @Prop({ mutable: true }) mapId: string = '';
   @Prop() className: string = '';
   @Prop({ mutable: true }) iconUrl: string = '';
   @Prop({ mutable: true }) iconHeight: number = 32;
@@ -26,7 +27,12 @@ export class LeafletMarker {
   @Prop({ mutable: true }) defaultPopup: string;
 
   componentDidLoad() {
-    this.lmap = L.map(this.mapId);
+    var target = this.el;
+    if (this.mapId && this.mapId != '') {
+      target = document.getElementById(this.mapId);
+    }
+
+    this.lmap = L.map(target);
     this.setView();
     this.setTileLayer();
     this.setScale();
@@ -108,13 +114,10 @@ export class LeafletMarker {
   }
 
   setChildren(): void {
-    console.log("CHILDREN", this.el.children);
     Array.from(this.el.children)
       .map(e => {
-        console.log("CHILD", e.nodeName, e);
         if (e.nodeName == "LEAFLET-MARKER") {
           const marker = e;
-          console.log("MARKER", [marker.getAttribute('latitude'), marker.getAttribute('longitude')]);
           const mk = L.marker([marker.getAttribute('latitude'), marker.getAttribute('longitude')])
             .addTo(this.lmap)
             .bindPopup(marker.textContent)
@@ -149,12 +152,8 @@ export class LeafletMarker {
             className: circle.hasAttribute('class-name') ? circle.getAttribute('class-name') : null
           };
 
-          console.log("CIRCLE", [circle.getAttribute('latitude'), circle.getAttribute('longitude')], opts);
-
           L.circle([circle.getAttribute('latitude'), circle.getAttribute('longitude')], opts)
             .addTo(this.lmap);
-
-          console.log('lmap', this.lmap);
         }
       });
   }
@@ -189,8 +188,9 @@ export class LeafletMarker {
   }
 
   render() {
-    return <div id={this.mapId} class={this.className} ref={el => this.el = el as HTMLDivElement}>
-      <slot></slot>
-    </div>;
+    // return <div id={this.mapId} class={this.className} ref={el => this.el = el as HTMLDivElement}>
+    //   <slot></slot>
+    // </div>;
+    return <slot></slot>;
   }
 }
