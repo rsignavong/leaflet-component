@@ -16,7 +16,7 @@
 | `iconWidth`         | `icon-width`          |             | `number`  | `32`                                                   |
 | `latitude`          | `latitude`            |             | `number`  | `51.505`                                               |
 | `longitude`         | `longitude`           |             | `number`  | `-0.09`                                                |
-| `mapId`             | `map-id`              |             | `string`  | `'mapId'`                                              |
+| `mapId`             | `map-id`              |             | `string`  | `''`                                                   |
 | `scale`             | `scale`               |             | `number`  | `13`                                                   |
 | `showDefaultMarker` | `show-default-marker` |             | `boolean` | `undefined`                                            |
 | `showScale`         | `show-scale`          |             | `boolean` | `undefined`                                            |

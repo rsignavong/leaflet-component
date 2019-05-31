@@ -1,4 +1,4 @@
-import { Component, Prop, Watch } from '@stencil/core';
+import { Component, Prop, Watch, Element } from '@stencil/core';
 import L from 'leaflet';
 
 @Component({
@@ -10,10 +10,11 @@ export class LeafletMarker {
   lmap: any = null;
   dmarker: any = null;
 
-  el!: HTMLDivElement;
+  @Element() el: HTMLElement;
+  // el!: HTMLDivElement;
 
   @Prop() tileLayer: string = 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png';
-  @Prop() mapId: string = 'mapId';
+  @Prop({ mutable: true }) mapId: string = '';
   @Prop() className: string = '';
   @Prop({ mutable: true }) iconUrl: string = '';
   @Prop({ mutable: true }) iconHeight: number = 32;
@@ -26,7 +27,12 @@ export class LeafletMarker {
   @Prop({ mutable: true }) defaultPopup: string;
 
   componentDidLoad() {
-    this.lmap = L.map(this.mapId);
+    var target = this.el;
+    if (this.mapId && this.mapId != '') {
+      target = document.getElementById(this.mapId);
+    }
+
+    this.lmap = L.map(target);
     this.setView();
     this.setTileLayer();
     this.setScale();
@@ -128,24 +134,25 @@ export class LeafletMarker {
         } else if (e.nodeName == "LEAFLET-CIRCLE") {
           const circle = e;
 
-          L.circle([circle.getAttribute('latitude'), circle.getAttribute('longitude')],
-            {
-              radius: circle.getAttribute('radius'),
-              stroke: circle.hasAttribute('stroke'),
-              color: circle.hasAttribute('color') ? circle.getAttribute('color') : "#3388ff",
-              weight: circle.hasAttribute('weight') ? circle.getAttribute('weight') : 3,
-              opacity: circle.hasAttribute('opacity') ? circle.getAttribute('opacity') : 1.0,
-              lineCap: circle.hasAttribute('line-cap') ? circle.getAttribute('line-cap') : "round",
-              lineJoin: circle.hasAttribute('line-join') ? circle.getAttribute('line-join') : "round",
-              dashArray: circle.hasAttribute('dash-array') ? circle.getAttribute('dash-array') : null,
-              dashOffset: circle.hasAttribute('dash-offset') ? circle.getAttribute('dash-offset') : null,
-              fill: circle.hasAttribute('fill') && circle.getAttribute('fill') == "false" ? false : true,
-              fillColor: circle.hasAttribute('fill-color') ? circle.getAttribute('fill-color') : "#3388ff",
-              fillOpacity: circle.hasAttribute('fill-opacity') ? circle.getAttribute('fill-opacity') : 0.2,
-              fillRule: circle.hasAttribute('fill-rule') ? circle.getAttribute('fill-rule') : "evenodd",
-              bubblingMouseEvents: circle.hasAttribute('bubbling-mouse-events'),
-              className: circle.hasAttribute('class-name') ? circle.getAttribute('class-name') : null
-            })
+          const opts = {
+            radius: circle.getAttribute('radius'),
+            stroke: circle.hasAttribute('stroke'),
+            color: circle.hasAttribute('color') ? circle.getAttribute('color') : "#3388ff",
+            weight: circle.hasAttribute('weight') ? circle.getAttribute('weight') : 3,
+            opacity: circle.hasAttribute('opacity') ? circle.getAttribute('opacity') : 1.0,
+            lineCap: circle.hasAttribute('line-cap') ? circle.getAttribute('line-cap') : "round",
+            lineJoin: circle.hasAttribute('line-join') ? circle.getAttribute('line-join') : "round",
+            dashArray: circle.hasAttribute('dash-array') ? circle.getAttribute('dash-array') : null,
+            dashOffset: circle.hasAttribute('dash-offset') ? circle.getAttribute('dash-offset') : null,
+            fill: circle.hasAttribute('fill') && circle.getAttribute('fill') == "false" ? false : true,
+            fillColor: circle.hasAttribute('fill-color') ? circle.getAttribute('fill-color') : "#3388ff",
+            fillOpacity: circle.hasAttribute('fill-opacity') ? circle.getAttribute('fill-opacity') : 0.2,
+            fillRule: circle.hasAttribute('fill-rule') ? circle.getAttribute('fill-rule') : "evenodd",
+            bubblingMouseEvents: circle.hasAttribute('bubbling-mouse-events'),
+            className: circle.hasAttribute('class-name') ? circle.getAttribute('class-name') : null
+          };
+
+          L.circle([circle.getAttribute('latitude'), circle.getAttribute('longitude')], opts)
             .addTo(this.lmap);
         }
       });
@@ -181,8 +188,9 @@ export class LeafletMarker {
   }
 
   render() {
-    return <div id={this.mapId} class={this.className} ref={el => this.el = el as HTMLDivElement}>
-      <slot></slot>
-    </div>;
+    // return <div id={this.mapId} class={this.className} ref={el => this.el = el as HTMLDivElement}>
+    //   <slot></slot>
+    // </div>;
+    return <div></div>;
   }
 }

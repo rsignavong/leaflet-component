@@ -1,0 +1,118 @@
+{
+  "components": [
+    {
+      "tag": "leaflet-map",
+      "dependencies": [],
+      "componentClass": "LeafletMarker",
+      "componentPath": "components/leaflet-map/leaflet-map.js",
+      "styles": {
+        "$": {
+          "stylePaths": [
+            "components/leaflet-map/leaflet-map.css"
+          ]
+        }
+      },
+      "props": [
+        {
+          "name": "className",
+          "type": "String",
+          "attr": "class-name"
+        },
+        {
+          "name": "defaultPopup",
+          "type": "String",
+          "mutable": true,
+          "attr": "default-popup",
+          "watch": [
+            "defaultPopupHandler"
+          ]
+        },
+        {
+          "name": "iconHeight",
+          "type": "Number",
+          "mutable": true,
+          "attr": "icon-height",
+          "watch": [
+            "iconHeightHandler"
+          ]
+        },
+        {
+          "name": "iconUrl",
+          "type": "String",
+          "mutable": true,
+          "attr": "icon-url",
+          "watch": [
+            "iconUrlHandler"
+          ]
+        },
+        {
+          "name": "iconWidth",
+          "type": "Number",
+          "mutable": true,
+          "attr": "icon-width",
+          "watch": [
+            "iconWidthHandler"
+          ]
+        },
+        {
+          "name": "latitude",
+          "type": "Number",
+          "mutable": true,
+          "attr": "latitude",
+          "watch": [
+            "latitudeHandler"
+          ]
+        },
+        {
+          "name": "longitude",
+          "type": "Number",
+          "mutable": true,
+          "attr": "longitude",
+          "watch": [
+            "longitudeHandler"
+          ]
+        },
+        {
+          "name": "mapId",
+          "type": "String",
+          "mutable": true,
+          "attr": "map-id"
+        },
+        {
+          "name": "scale",
+          "type": "Number",
+          "mutable": true,
+          "attr": "scale",
+          "watch": [
+            "scaleHandler"
+          ]
+        },
+        {
+          "name": "showDefaultMarker",
+          "type": "Boolean",
+          "attr": "show-default-marker"
+        },
+        {
+          "name": "showScale",
+          "type": "Boolean",
+          "attr": "show-scale"
+        },
+        {
+          "name": "tileLayer",
+          "type": "String",
+          "attr": "tile-layer"
+        }
+      ],
+      "hostElement": {
+        "name": "el"
+      }
+    }
+  ],
+  "collections": [],
+  "compiler": {
+    "name": "@stencil/core",
+    "version": "0.16.2",
+    "typescriptVersion": "3.2.2"
+  },
+  "bundles": []
+}
