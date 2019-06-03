@@ -97,6 +97,22 @@ export class LeafletMarker {
     this.setView();
   }
 
+  attributesObserver(el: any, mutationsList: Array<any>) : void {
+    for (const mutation of mutationsList) {
+      if (mutation.type !== 'attributes')  continue;
+
+      if (['latitude', 'longitude'].includes(mutation.attributeName)) {
+        this.children.get(el).layer.setLatLng([el.getAttribute('latitude'), el.getAttribute('longitude')]);
+      }
+
+      if (['icon-height', 'icon-url', 'icon-width'].includes(mutation.attributeName)) {
+        const icon = this.getIcon(el);
+
+        this.children.get(el).layer.setIcon(icon);
+      }
+    }
+  }
+
   childrenObserver(mutationsList: Array<any>): void {
     for (const mutation of mutationsList) {
       if (mutation.type !== 'childList') continue;
@@ -106,14 +122,11 @@ export class LeafletMarker {
     }
   }
 
-  attributesObserver(el: any, mutationsList: Array<any>) : void {
-    for (const mutation of mutationsList) {
-      if (mutation.type !== 'attributes')  continue;
-
-      if (['latitude', 'longitude'].includes(mutation.attributeName)) {
-        this.children.get(el).layer.setLatLng([el.getAttribute('latitude'), el.getAttribute('longitude')]);
-      }
-    }
+  getIcon(el: any) {
+    return L.icon({
+      iconUrl: el.getAttribute('icon-url'),
+      iconSize: [el.getAttribute('icon-width') || 32, el.getAttribute('icon-height') || 32]
+    });
   }
 
   removeChildren(nodes: Array<any>) {
@@ -149,10 +162,7 @@ export class LeafletMarker {
           }
 
           if (e.getAttribute('icon-url')) {
-            const icon = L.icon({
-              iconUrl: e.getAttribute('icon-url'),
-              iconSize: [e.getAttribute('icon-width') || 32, e.getAttribute('icon-height') || 32]
-            });
+            const icon = this.getIcon(e)
 
             marker.layer.setIcon(icon);
           }
