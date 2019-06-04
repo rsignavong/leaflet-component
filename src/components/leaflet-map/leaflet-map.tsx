@@ -135,6 +135,8 @@ export class LeafletMarker {
   }
 
   updateUserIcon() {
+    if (!this.userLatitude || !this.userLongitude) return;
+
     this.userMarker.setLatLng([this.userLatitude, this.userLongitude]);
 
     if (!this.userIconUrl) return;
@@ -150,6 +152,8 @@ export class LeafletMarker {
 
 
   setUserIcon() {
+    if (!this.userLatitude || !this.userLongitude) return;
+
     this.userMarker = L.marker([this.userLatitude, this.userLongitude]);
     this.userMarker.addTo(this.lmap);
 
