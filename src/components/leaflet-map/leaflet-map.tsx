@@ -139,7 +139,7 @@ export class LeafletMarker {
 
     const icon = L.icon({
       iconUrl: this.userIconUrl,
-      iconSize: [this.iconWidth || 32, this.iconHeight || 32]
+      iconSize: [this.userIconWidth || 32, this.userIconHeight || 32]
     });
 
     this.userMarker.setIcon(icon);
@@ -151,7 +151,7 @@ export class LeafletMarker {
 
     const icon = L.icon({
       iconUrl: this.userIconUrl,
-      iconSize: [this.iconWidth || 32, this.iconHeight || 32]
+      iconSize: [this.userIconWidth || 32, this.userIconHeight || 32]
     });
 
     this.userMarker.setIcon(icon);
