@@ -47,7 +47,7 @@ export class LeafletMarker {
     this.setScale();
     this.setChildren();
     this.setDefaultMarker();
-    this.setUserIcon();
+    this.setUserMarker();
 
     this.observer = new MutationObserver((mutations: Array<any>, _observer: any) => this.childrenObserver(mutations));
     this.observer.observe(target, { attributes: false, childList: true, subtree: false });
@@ -107,35 +107,36 @@ export class LeafletMarker {
   @Watch('userLatitude')
   userLatitudeHandler(newValue: number, _oldValue: number): void {
     this.userLatitude = newValue;
-    this.updateUserIcon();
+    this.updateUserMarker();
   }
 
   @Watch('userLongitude')
   userLongitudeHandler(newValue: number, _oldValue: number): void {
     this.userLongitude = newValue;
-    this.updateUserIcon();
+    this.updateUserMarker();
   }
 
   @Watch('userIconUrl')
   userIconUrlHandler(newValue: string, _oldValue: string): void {
     this.userIconUrl = newValue;
-    this.updateUserIcon();
+    this.updateUserMarker();
   }
 
   @Watch('userIconWidth')
   userIconWidthHandler(newValue: number, _oldValue: number): void {
     this.userIconWidth = newValue;
-    this.updateUserIcon();
+    this.updateUserMarker();
   }
 
   @Watch('userIconHeight')
   userIconHeightHandler(newValue: number, _oldValue: number): void {
     this.userIconHeight = newValue;
-    this.updateUserIcon();
+    this.updateUserMarker();
   }
 
-  updateUserIcon() {
-    if (!this.userLatitude || !this.userLongitude) return;
+  updateUserMarker() {
+    if (this.userLatitude === undefined || this.userLatitude === null || isNaN(this.userLatitude) ||
+      this.userLongitude === undefined || this.userLongitude === null || isNaN(this.userLongitude)) return;
 
     this.userMarker.setLatLng([this.userLatitude, this.userLongitude]);
 
@@ -150,9 +151,9 @@ export class LeafletMarker {
 
   }
 
-
-  setUserIcon() {
-    if (!this.userLatitude || !this.userLongitude) return;
+  setUserMarker() {
+    if (this.userLatitude === undefined || this.userLatitude === null || isNaN(this.userLatitude) ||
+      this.userLongitude === undefined || this.userLongitude === null || isNaN(this.userLongitude)) return;
 
     this.userMarker = L.marker([this.userLatitude, this.userLongitude]);
     this.userMarker.addTo(this.lmap);
