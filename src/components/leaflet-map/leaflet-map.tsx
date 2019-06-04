@@ -14,6 +14,7 @@ interface LayerObserver {
 export class LeafletMarker {
   lmap: any = null;
   dmarker: any = null;
+  userMarker:any = null;
   observer: any = null;
   children: WeakMap<any, LayerObserver> = new WeakMap();
 
@@ -31,6 +32,11 @@ export class LeafletMarker {
   @Prop() showScale: boolean;
   @Prop() showDefaultMarker: boolean;
   @Prop({ mutable: true }) defaultPopup: string;
+  @Prop({ mutable: true }) userLatitude: number = 0;
+  @Prop({ mutable: true }) userLongitude: number = 0;
+  @Prop({ mutable: true }) userIconUrl: string = '';
+  @Prop({ mutable: true }) userIconWidth: number = 0;
+  @Prop({ mutable: true }) userIconHeight: number = 0;
 
   componentDidLoad() {
     const target = this.mapId ? document.getElementById(this.mapId) : this.el;
@@ -41,6 +47,7 @@ export class LeafletMarker {
     this.setScale();
     this.setChildren();
     this.setDefaultMarker();
+    this.setUserIcon();
 
     this.observer = new MutationObserver((mutations: Array<any>, _observer: any) => this.childrenObserver(mutations));
     this.observer.observe(target, { attributes: false, childList: true, subtree: false });
@@ -95,6 +102,60 @@ export class LeafletMarker {
   scaleHandler(newValue: number, _oldValue: number): void {
     this.scale = newValue;
     this.setView();
+  }
+
+  @Watch('userLatitude')
+  userLatitudeHandler(newValue: number, _oldValue: number): void {
+    this.userLatitude = newValue;
+    this.updateUserIcon();
+  }
+
+  @Watch('userLongitude')
+  userLongitudeHandler(newValue: number, _oldValue: number): void {
+    this.userLongitude = newValue;
+    this.updateUserIcon();
+  }
+
+  @Watch('userIconUrl')
+  userIconUrlHandler(newValue: string, _oldValue: string): void {
+    this.userIconUrl = newValue;
+    this.updateUserIcon();
+  }
+
+  @Watch('userIconWidth')
+  userIconWidthHandler(newValue: number, _oldValue: number): void {
+    this.userIconWidth = newValue;
+    this.updateUserIcon();
+  }
+
+  @Watch('userIconHeight')
+  userIconHeightHandler(newValue: number, _oldValue: number): void {
+    this.userIconHeight = newValue;
+    this.updateUserIcon();
+  }
+
+  updateUserIcon() {
+    this.userMarker.setLatLng([this.userLatitude, this.userLongitude]);
+
+    const icon = L.icon({
+      iconUrl: this.userIconUrl,
+      iconSize: [this.iconWidth || 32, this.iconHeight || 32]
+    });
+
+    this.userMarker.setIcon(icon);
+  }
+
+
+  setUserIcon() {
+    this.userMarker = L.marker([this.userLatitude, this.userLongitude]);
+
+    const icon = L.icon({
+      iconUrl: this.userIconUrl,
+      iconSize: [this.iconWidth || 32, this.iconHeight || 32]
+    });
+
+    this.userMarker.setIcon(icon);
+    this.userMarker.addTo(this.lmap);
   }
 
   attributesObserver(el: any, mutationsList: Array<any>) : void {

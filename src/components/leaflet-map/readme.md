@@ -21,6 +21,11 @@
 | `showDefaultMarker` | `show-default-marker` |             | `boolean` | `undefined`                                            |
 | `showScale`         | `show-scale`          |             | `boolean` | `undefined`                                            |
 | `tileLayer`         | `tile-layer`          |             | `string`  | `'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'` |
+| `userIconHeight`    | `user-icon-height`    |             | `number`  | `0`                                                    |
+| `userIconUrl`       | `user-icon-url`       |             | `string`  | `''`                                                   |
+| `userIconWidth`     | `user-icon-width`     |             | `number`  | `0`                                                    |
+| `userLatitude`      | `user-latitude`       |             | `number`  | `0`                                                    |
+| `userLongitude`     | `user-longitude`      |             | `number`  | `0`                                                    |
 
 
 ----------------------------------------------

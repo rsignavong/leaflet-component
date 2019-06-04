@@ -25,6 +25,11 @@ export namespace Components {
     'showDefaultMarker': boolean;
     'showScale': boolean;
     'tileLayer': string;
+    'userIconHeight': number;
+    'userIconUrl': string;
+    'userIconWidth': number;
+    'userLatitude': number;
+    'userLongitude': number;
   }
   interface LeafletMapAttributes extends StencilHTMLAttributes {
     'className'?: string;
@@ -39,6 +44,11 @@ export namespace Components {
     'showDefaultMarker'?: boolean;
     'showScale'?: boolean;
     'tileLayer'?: string;
+    'userIconHeight'?: number;
+    'userIconUrl'?: string;
+    'userIconWidth'?: number;
+    'userLatitude'?: number;
+    'userLongitude'?: number;
   }
 }
 
