@@ -314,7 +314,6 @@ export class LeafletMarker {
   }
 
   updateDefaultPopup(): void {
-    console.log("update", this.showDefaultMarker, this.defaultPopup);
     if (this.showDefaultMarker && this.defaultPopup) {
       this.dmarker
         .bindPopup(this.defaultPopup, { offset: L.point(0, 6 - this.iconHeight / 2) })
