@@ -137,17 +137,23 @@ export class LeafletMarker {
   updateUserIcon() {
     this.userMarker.setLatLng([this.userLatitude, this.userLongitude]);
 
+    if (!this.userIconUrl) return;
+
     const icon = L.icon({
       iconUrl: this.userIconUrl,
       iconSize: [this.userIconWidth || 32, this.userIconHeight || 32]
     });
 
     this.userMarker.setIcon(icon);
+
   }
 
 
   setUserIcon() {
     this.userMarker = L.marker([this.userLatitude, this.userLongitude]);
+    this.userMarker.addTo(this.lmap);
+
+    if (!this.userIconUrl) return;
 
     const icon = L.icon({
       iconUrl: this.userIconUrl,
@@ -155,7 +161,6 @@ export class LeafletMarker {
     });
 
     this.userMarker.setIcon(icon);
-    this.userMarker.addTo(this.lmap);
   }
 
   attributesObserver(el: any, mutationsList: Array<any>) : void {
