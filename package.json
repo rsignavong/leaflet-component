@@ -20,7 +20,7 @@
     "leaflet": "^1.4.0"
   },
   "devDependencies": {
-    "@stencil/core": "~0.16.2"
+    "@stencil/core": "~2.20.0"
   },
   "license": "MIT"
 }
